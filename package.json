@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dotenv": "^6.2.0",
+    "firebase": "^5.8.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.0",
+    "react-redux-firebase": "^2.2.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "redux": "^4.0.1",
+    "redux-firestore": "^0.7.0",
     "redux-thunk": "^2.3.0",
     "set-default-browser": "^1.0.1"
   },
