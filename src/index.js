@@ -8,12 +8,15 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './store/reducers/rootReducer';
 import fbConfig from './config/fbConfig'
+import firebase from './config/fbConfig'
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import { reduxFirestore } from 'redux-firestore'
 
 const store = createStore(rootReducer, {}, compose(
     applyMiddleware(
       thunk.withExtraArgument(getFirebase) // Pass getFirebase function as extra argument
     ),
+    reduxFirestore(firebase),
     reactReduxFirebase(fbConfig, { userProfile: 'users', enableLogging: false })
   ));
 

@@ -6,6 +6,8 @@ export const createProject = (project) => {
 
         store.collection('projects').add({
             ...project,
+            title: project.title,
+            content: project.content,
             authorFirstName: 'Jane',
             authorLastName: 'Doe',
             authorId: 12345,

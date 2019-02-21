@@ -4,6 +4,8 @@ import Notifications from './Notifications'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
+import Scrollbar from 'react-scrollbars-custom';
+// import firebase from '../../config/fbConfig'
 
 class Dashboard extends Component {
 
@@ -11,12 +13,22 @@ class Dashboard extends Component {
     
     // console.log(this.props);
     const { projects } = this.props;
+
+    let projectList;
+    if(projects){
+      projectList = projects.length > 5 ? <Scrollbar style={{ minHeight: '75vh' }}><ProjectList projects={projects} /></Scrollbar> : projectList = <ProjectList projects={projects} />      
+    }
+    else{
+      projectList = <div className="loader"><img src="/images/loader.svg" alt="Loading" /></div>
+    }
     
     return (
       <div className="dashboard container">
         <div className="row">
           <div className="col s12 m6">
-            <ProjectList projects={projects} />
+            <div className="projectList-wrapper">
+              {projectList}
+            </div>
           </div>
           <div className="col s12 m5 offset-m1">
             <Notifications />
@@ -27,26 +39,24 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-
-  if(state.firestore.ordered.projects)
-  {
-      return{
-          projects: state.firestore.ordered.projects
-      }
+/*firebase.firestore().collection('projects').get().then(function(querySnapshot) {
+  if (querySnapshot.size > 0) {
+    // Contents of first document
+    console.log(querySnapshot.docs);
+  } else {
+    console.log("No such document!");
   }
-  else
-  {
-      return{
-          projects: state.project.projects
-      }
+})*/
+
+const mapStateToProps = (state) => {
+  return{
+    projects: state.firestore.ordered.projects
   }
 }
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{
-    collection: 'projects'
-  }])
+  firestoreConnect([
+    { collection: 'projects' }
+  ])
 )(Dashboard)
