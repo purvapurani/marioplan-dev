@@ -13,13 +13,14 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore } from 'redux-firestore'
 
 const store = createStore(rootReducer, {}, compose(
-    applyMiddleware(
-      thunk.withExtraArgument(getFirebase) // Pass getFirebase function as extra argument
-    ),
-    reduxFirestore(firebase),
-    reactReduxFirebase(fbConfig, { userProfile: 'users', enableLogging: false })
-  ));
+  applyMiddleware(
+    thunk.withExtraArgument(getFirebase) // Pass getFirebase function as extra argument
+  ),
+  reduxFirestore(firebase),
+  reactReduxFirebase(fbConfig, { useFirestoreForProfile: true, userProfile: 'users', attachAuthIsReady: true })
+));
 
-
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
+})

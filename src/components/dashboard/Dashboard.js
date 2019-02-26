@@ -6,13 +6,16 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import Scrollbar from 'react-scrollbars-custom';
 // import firebase from '../../config/fbConfig'
+import {Redirect} from 'react-router-dom'
 
 class Dashboard extends Component {
 
   render() {
     
     // console.log(this.props);
-    const { projects } = this.props;
+    const { projects, auth } = this.props;
+
+    if(!auth.uid) return <Redirect to='/signin' />
 
     let projectList;
     if(projects){
@@ -50,7 +53,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    projects: state.firestore.ordered.projects
+    projects: state.firestore.ordered.projects,
+    auth: state.firebase.auth
   }
 }
 
