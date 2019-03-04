@@ -95,7 +95,7 @@ input[type=password]:not(.browser-default):focus:not([readonly])+label {
 }
 
 .projectList-wrapper {
-  margin-top: 30px
+  margin-top: 25px
 }
 
 .project-list {
@@ -106,12 +106,20 @@ input[type=password]:not(.browser-default):focus:not([readonly])+label {
   padding-bottom: 0;
 }
 
-.project-list>.card:first-child {
+.project-list>a:first-child .card {
   margin-top: 0
 }
 
-.project-list>.card:last-child {
+.project-list>a:last-child .card {
   margin-bottom: 0
+}
+
+.track.trackY{
+  top:0 !important;
+  height: 100% !important;
+}
+.card.project-summary:first-child{
+  margin-top:0
 }
 
 @media only screen and (max-width: 992px) {
@@ -132,6 +140,7 @@ input[type=password]:not(.browser-default):focus:not([readonly])+label {
     height: auto;
     width: 100%;
     float: left;
+    position: relative;
   }
   .signInOutLinks-container {
     float: left;
